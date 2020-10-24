@@ -99,7 +99,7 @@
 
 <body class="text-center">
     <div class="container">
-        <img class="mb-4" id="logo" src="./buunnieSit.png" alt="Copyright 2020 buunnie" />
+        <img class="mb-4" id="logo" src="./buunniSit.png" alt="Copyright 2020 buunnie" />
 
         <h1 class="h3 mb-3 font-weight-normal">
             Emote Morse
@@ -218,8 +218,8 @@
 
             document.getElementById('preview').innerHTML = textValue.replaceAll(/[a-z0-9\.,\?'!\/\(\)&:;=+\-_"$@ ]/gi, function(match) {
                 return alphabet[match.toLowerCase()]
-                .replaceAll('−', '<img src="buunnieSit.png" class="dash">')
-                .replaceAll('·', '<img src="buunnieSit.png" class="dot">') + ' ';
+                .replaceAll('−', '<img src="buunniSit.png" class="dash">')
+                .replaceAll('·', '<img src="buunniSit.png" class="dot">') + ' ';
             }).trim();
         });
     </script>
