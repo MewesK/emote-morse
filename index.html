@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous" />
+
+    <title>Emote Morse</title>
+
+    <style>
+        html,
+        body {
+            height: 100%;
+        }
+
+        body {
+            display: -ms-flexbox;
+            display: flex;
+            -ms-flex-align: center;
+            align-items: center;
+            padding-top: 40px;
+            padding-bottom: 40px;
+            background-color: #f5f5f5;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 330px;
+            padding: 15px;
+            margin: auto;
+        }
+
+        .container .checkbox {
+            font-weight: 400;
+        }
+
+        .container .form-control {
+            position: relative;
+            box-sizing: border-box;
+            height: auto;
+            padding: 10px;
+            font-size: 16px;
+        }
+
+        .container .form-control:focus {
+            z-index: 2;
+        }
+
+        .container #inputDash {
+            margin-bottom: -1px;
+            border-bottom-right-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
+        .container #inputDot {
+            margin-bottom: -1px;
+            border-radius: 0;
+        }
+
+        .container #inputText {
+            margin-bottom: 10px;
+            border-top-left-radius: 0;
+            border-top-right-radius: 0;
+        }
+
+        img#logo {
+            width: 56px;
+            height: 56px;
+            animation: grow 10s infinite;
+        }
+
+        img.dot {
+            width: 28px;
+            height: 28px;
+        }
+
+        img.dash {
+            width: 28px;
+            height: 28px;
+            transform: scaleX(2);
+            margin-left: 14px;
+            margin-right: 14px;
+        }
+
+        @keyframes grow {
+            0% {
+                transform: scaleX(1);
+            }
+
+            50% {
+                transform: scaleX(2);
+            }
+        }
+    </style>
+</head>
+
+<body class="text-center">
+    <div class="container">
+        <img class="mb-4" id="logo" src="./buunnieSit.png" alt="Copyright 2020 buunnie" />
+
+        <h1 class="h3 mb-3 font-weight-normal">
+            Emote Morse
+        </h1>
+
+        <label for="inputDash" class="sr-only">Dash</label>
+        <input type="text" id="inputDash" class="form-control" placeholder="−" value="buunniUwu" required />
+
+        <label for="inputDot" class="sr-only">Dot</label>
+        <input type="text" id="inputDot" class="form-control" placeholder="·" value="buunniUwu_SQ" required />
+
+        <label for="inputText" class="sr-only">Text</label>
+        <textarea type="text" id="inputText" class="form-control" placeholder="Enter text..." required autofocus></textarea>
+
+        <div class="checkbox mb-3">
+            <label>
+                <input type="checkbox" id="inputDiscord" /> Discord
+                <span class="text-muted">(adds <span class="font-weight-bold">:</span>)</span>
+            </label>
+        </div>
+
+        <button class="btn btn-lg btn-primary btn-block mb-3" type="submit">
+            Encode
+        </button>
+
+        <div class="font-weight-bold text-muted mb-3">
+            &#129131;
+        </div>
+
+        <label for="inputResult" class="sr-only">Result</label>
+        <textarea type="text" id="inputResult" class="form-control mb-3" placeholder="" readonly></textarea>
+
+        <div id="preview"></div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js"
+        integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s"
+        crossorigin="anonymous"></script>
+
+    <script>
+        const alphabet = {
+            'a': '·−',
+            'b': '−···',
+            'c': '−·−·',
+            'd': '−··',
+            'e': '·',
+            'f': '··−·',
+            'g': '−−·',
+            'h': '····',
+            'i': '··',
+            'j': '·−−−',
+            'k': '−·−',
+            'l': '·−··',
+            'm': '−−',
+            'n': '−·',
+            'o': '−−−',
+            'p': '·−−·',
+            'q': '−−·−',
+            'r': '·−·',
+            's': '···',
+            't': '−',
+            'u': '··−',
+            'v': '···−',
+            'w': '·−−',
+            'x': '−··−',
+            'y': '−·−−',
+            'z': '−−··',
+            '0': '−−−−−',
+            '1': '·−−−−',
+            '2': '··−−−',
+            '3': '···−−',
+            '4': '····−',
+            '5': '·····',
+            '6': '−····',
+            '7': '−−···',
+            '8': '−−−··',
+            '9': '−−−−·',
+            '.': '·−·−·−',
+            ',': '−−··−−',
+            '?': '··−−··',
+            '\'': '·−−−−·',
+            '!': '−·−·−−',
+            '/': '−··−·',
+            '(': '−·−−·',
+            ')': '−·−−·−',
+            '&': '·−···',
+            ':': '−−−···',
+            ';': '−·−·−·',
+            '=': '−···−',
+            '+': '·−·−·',
+            '-': '−····−',
+            '_': '··−−·−',
+            '"': '·−··−·',
+            '$': '···−··−',
+            '@': '·−−·−·',
+            ' ': ' '
+        };
+        document.querySelector('button[type=submit]').addEventListener('click', function() {
+            const dashValue = document.getElementById('inputDash').value;
+            const dotValue = document.getElementById('inputDot').value;
+            const textValue = document.getElementById('inputText').value;
+            const discordValue = document.getElementById('inputDiscord').checked;
+            const envelope = discordValue ? ':' : '';
+
+            document.getElementById('inputResult').value = textValue.replaceAll(/[a-z0-9\.,\?'!\/\(\)&:;=+\-_"$@ ]/gi, function(match) {
+                return alphabet[match.toLowerCase()]
+                .replaceAll('−', envelope + dashValue + envelope)
+                .replaceAll('·', envelope + dotValue + envelope) + ' ';
+            }).trim();
+
+            document.getElementById('preview').innerHTML = textValue.replaceAll(/[a-z0-9\.,\?'!\/\(\)&:;=+\-_"$@ ]/gi, function(match) {
+                return alphabet[match.toLowerCase()]
+                .replaceAll('−', '<img src="buunnieSit.png" class="dash">')
+                .replaceAll('·', '<img src="buunnieSit.png" class="dot">') + ' ';
+            }).trim();
+        });
+    </script>
+</body>
+
+</html>
