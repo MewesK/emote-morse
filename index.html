@@ -201,19 +201,20 @@
             '"': '·−··−·',
             '$': '···−··−',
             '@': '·−−·−·',
-            ' ': ' '
+            ' ': '  '
         };
         document.querySelector('button[type=submit]').addEventListener('click', function() {
             const dashValue = document.getElementById('inputDash').value;
             const dotValue = document.getElementById('inputDot').value;
             const textValue = document.getElementById('inputText').value;
             const discordValue = document.getElementById('inputDiscord').checked;
-            const envelope = discordValue ? ':' : '';
+            const envelopeStart = discordValue ? ':' : '';
+            const envelopeEnd = discordValue ? ':' : ' ';
 
             document.getElementById('inputResult').value = textValue.replaceAll(/[a-z0-9\.,\?'!\/\(\)&:;=+\-_"$@ ]/gi, function(match) {
                 return alphabet[match.toLowerCase()]
-                .replaceAll('−', envelope + dashValue + envelope)
-                .replaceAll('·', envelope + dotValue + envelope) + ' ';
+                .replaceAll('−', envelopeStart + dashValue + envelopeEnd)
+                .replaceAll('·', envelopeStart + dotValue + envelopeEnd) + ' ';
             }).trim();
 
             document.getElementById('preview').innerHTML = textValue.replaceAll(/[a-z0-9\.,\?'!\/\(\)&:;=+\-_"$@ ]/gi, function(match) {
